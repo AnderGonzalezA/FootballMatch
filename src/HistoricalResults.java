@@ -21,15 +21,21 @@ public class HistoricalResults{
 			PartidoFutbol.add(ThisFootballMatch);
 		}
 		ListIterator<FootballMatch> it = PartidoFutbol.listIterator();
+		int drawCounter=0;
 		while (it.hasNext()) {
-			System.out.println(it.next().getLocalTeam() + "  " + it.previous().getVisitorTeam() +  "  " + it.next().getGoalsLocal() +  "  " + it.previous().getGoalsVisitor());
+			if (it.next().getGoalsLocal()!=it.previous().getGoalsVisitor()) {
+				System.out.println(it.next().getLocalTeam() + "  " + it.previous().getVisitorTeam() +  "  " + it.next().getGoalsLocal() +  "  " + it.previous().getGoalsVisitor());
+			}
+			else {
+				drawCounter++;
+			}
 			it.next();
 		}
 		//for (int i=0;i<PartidoFutbol.size();i++) {
 			//System.out.println(PartidoFutbol.get(i).getLocalTeam() + "  " + PartidoFutbol.get(i).getVisitorTeam() +  "  " + PartidoFutbol.get(i).getGoalsLocal() +  "  " + PartidoFutbol.get(i).getGoalsVisitor());
 		//}
 		//System.out.println(PartidoFutbol.size() + " matches have been displayed on the screen.");
-		System.out.println(it.nextIndex() + " matches have been displayed on the screen.");
+		System.out.println(it.nextIndex()-drawCounter + " matches have been displayed on the screen because " + drawCounter + " draws were omitted");
 		sc.close();
 	}
 }
