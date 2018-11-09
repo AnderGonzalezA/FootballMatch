@@ -2,29 +2,34 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.ListIterator;
 public class HistoricalResults{
 	public static void main(String[] args) throws FileNotFoundException {
 		File originFileToCopy=new File("C:\\Users\\ik013043Z1\\eclipse-workspace\\FootballMatch\\src\\FootballMatches.txt");
 		Scanner sc = new Scanner(originFileToCopy);
-		int matchCounter=0;
+		ArrayList<FootballMatch> PartidoFutbol = new ArrayList<FootballMatch>();
 		while (sc.hasNext()) {
 			String match = sc.nextLine();
 			String[] information = match.split("::");
-			ArrayList<String> PartidoFutbol = new ArrayList<String>();
-			for (int i=0;i<information.length;i++) {
-				PartidoFutbol.add(information[i]);
-			}
-			int GoalsLocal = Integer.parseInt(PartidoFutbol.get(2));
-			int GoalsVisitor = Integer.parseInt(PartidoFutbol.get(3));
+			int GoalsLocal = Integer.parseInt(information[2]);
+			int GoalsVisitor = Integer.parseInt(information[3]);
 			FootballMatch ThisFootballMatch=new FootballMatch();
-			ThisFootballMatch.setLocalTeam(PartidoFutbol.get(0));
-			ThisFootballMatch.setVisitorTeam(PartidoFutbol.get(1));
+			ThisFootballMatch.setLocalTeam(information[0]);
+			ThisFootballMatch.setVisitorTeam(information[1]);
 			ThisFootballMatch.setGoalsLocal(GoalsLocal);
 			ThisFootballMatch.setGoalsVisitor(GoalsVisitor);
-			System.out.println(ThisFootballMatch.getLocalTeam() + "  " + ThisFootballMatch.getVisitorTeam() +  "  " + ThisFootballMatch.getGoalsLocal() +  "  " + ThisFootballMatch.getGoalsVisitor());
-			matchCounter++;
+			PartidoFutbol.add(ThisFootballMatch);
 		}
-		System.out.println(matchCounter + " matches have been displayed on the screen.");
+		ListIterator<FootballMatch> it = PartidoFutbol.listIterator();
+		while (it.hasNext()) {
+			System.out.println(it.next().getLocalTeam() + "  " + it.previous().getVisitorTeam() +  "  " + it.next().getGoalsLocal() +  "  " + it.previous().getGoalsVisitor());
+			it.next();
+		}
+		//for (int i=0;i<PartidoFutbol.size();i++) {
+			//System.out.println(PartidoFutbol.get(i).getLocalTeam() + "  " + PartidoFutbol.get(i).getVisitorTeam() +  "  " + PartidoFutbol.get(i).getGoalsLocal() +  "  " + PartidoFutbol.get(i).getGoalsVisitor());
+		//}
+		//System.out.println(PartidoFutbol.size() + " matches have been displayed on the screen.");
+		System.out.println(it.nextIndex() + " matches have been displayed on the screen.");
 		sc.close();
 	}
 }
