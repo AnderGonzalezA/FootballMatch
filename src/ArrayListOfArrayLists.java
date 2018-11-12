@@ -4,17 +4,22 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ListIterator;
 public class ArrayListOfArrayLists {
-	public static void main(String[] args) throws FileNotFoundException {
-		// We create an empty ArrayList object of ArrayList type
-		ArrayList<ArrayList> MatchesFilesArrayList = new ArrayList<ArrayList>();
+	public static void main(String[] args){
+		// We create an empty ArrayList object of ArrayList type (that will be of FootballMatch type)
+		ArrayList<ArrayList<FootballMatch>> LeagueArrayList = new ArrayList<ArrayList <FootballMatch>>();
+		// We control that the user enters an argument at least
 		if (args.length!=0) {
-			File[] FileArray = ;
-			Scanner[] ScannerArray = null;
+			// We create an empty array of the type File with the length of the number of arguments the user entered
+			File[] FileArray = new File[args.length];
+			// We create an empty array of the type Scanner with the length of the number of arguments
+			Scanner[] ScannerArray = new Scanner[args.length];
+			// We open a loop for each argument
 			for (int i=0;i<args.length;i++) {
 				// We create a file object with a previously created text file
-				FileArray[i]=new File("C:\\Users\\ik013043Z1\\eclipse-workspace\\FootballMatch\\src\\" + args[i] + ".txt");
+				FileArray[i]=new File("C:\\Users\\etxea\\eclipse-workspace\\FootballMatch\\src\\" + args[i] + "Matches.txt");
 				// We create a scanner object with the previously created file object
-				ScannerArray[i] = new Scanner(FileArray[i]);
+				try {
+					ScannerArray[i] = new Scanner(FileArray[i]);
 				// We create an empty ArrayList object of FootballMatch type
 				ArrayList<FootballMatch> PartidoFutbol = new ArrayList<FootballMatch>();
 				// We create a loop where each line of the text file will be a match
@@ -37,13 +42,18 @@ public class ArrayListOfArrayLists {
 					PartidoFutbol.add(ThisFootballMatch);
 				}
 				// We add the ArrayList object to the previously created ArrayList of ArrayList type;
-				MatchesFilesArrayList.add(PartidoFutbol);
+				LeagueArrayList.add(PartidoFutbol);
 				ScannerArray[i].close();
+				}
+				catch (FileNotFoundException e) {
+					e.printStackTrace();
+					System.out.println("The file of the competition " + args[i] + " was not found.");
+				}
 			}
 			// We create a loop for each ArrayList of the ArrayList
-			for (int i=0;i<MatchesFilesArrayList.size();i++) {
+			for (int i=0;i<LeagueArrayList.size();i++) {
 				// We create a iterator with the ArrayList of FootballMatch type
-				ListIterator<FootballMatch> it = MatchesFilesArrayList.get(i).listIterator();
+				ListIterator<FootballMatch> it = LeagueArrayList.get(i).listIterator();
 				// We create a counter that will hold how many draws were in the matches
 				int drawCounter=0;
 				// We create a loop where each turn the iterator will hold the values of each match
