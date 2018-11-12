@@ -69,10 +69,11 @@ public class ArrayListOfArrayLists {
 					// We go to the next match
 					it.next();
 				}
-				// We print how many matches of the Liga Española have been printed and how many draws were
+				// We print how many matches of each league have been printed and how many draws were
 				System.out.println(it.nextIndex()-drawCounter + " matches of the " + args[i] + " have been displayed on the screen because " + drawCounter + " draws were omitted");
 				System.out.println();
 			}
+		// If the user has not entered any argument we ask him for it
 		}
 		else {
 			System.out.println("Please try again, you didn't enter any competition");
