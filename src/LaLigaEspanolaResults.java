@@ -39,20 +39,21 @@ public class LaLigaEspanolaResults{
 			// If there wasn't a draw in the match, we will print the information of the match
 			if (it.next().getGoalsLocal()!=it.previous().getGoalsVisitor()) {
 				System.out.println(it.next().getLocalTeam() + "  " + it.previous().getVisitorTeam() +  "  " + it.next().getGoalsLocal() +  "  " + it.previous().getGoalsVisitor());
+				// We go to the next match
+				it.next();
 			}
-			// Otherwise we will increment the draw counter
+			// Otherwise we will increment the draw counter and remove the match from the ArrayList
 			else {
 				drawCounter++;
+				it.remove();
 			}
-			// We go to the next match
-			it.next();
 		}
 		//for (int i=0;i<PartidoFutbol.size();i++) {
 			//System.out.println(PartidoFutbol.get(i).getLocalTeam() + "  " + PartidoFutbol.get(i).getVisitorTeam() +  "  " + PartidoFutbol.get(i).getGoalsLocal() +  "  " + PartidoFutbol.get(i).getGoalsVisitor());
 		//}
 		//System.out.println(PartidoFutbol.size() + " matches have been displayed on the screen.");
 		// We print how many matches have been printed and how many draws were
-		System.out.println(it.nextIndex()-drawCounter + " matches have been displayed on the screen because " + drawCounter + " draws were omitted");
+		System.out.println(PartidoFutbol.size() + " matches have been displayed on the screen because " + drawCounter + " draws were omitted");
 		sc.close();
 	}
 }
